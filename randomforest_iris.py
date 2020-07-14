@@ -1,0 +1,25 @@
+from sklearn.ensemble import RandomForestClassifier
+# from sklearn.cross_validation import train_test_split
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+
+dataset = datasets.load_iris()
+
+features = dataset.data
+targets = dataset.target
+
+feature_train, feature_test, target_train, target_test = train_test_split(features, targets, test_size=.2)
+
+model = RandomForestClassifier(n_estimators=1000, max_features='sqrt')
+fitted_model = model.fit(feature_train, target_train)
+predictions = fitted_model.predict(feature_test)
+
+print(confusion_matrix(target_test, predictions))
+print(accuracy_score(target_test, predictions))
+
+# [[ 8  0  0]
+#  [ 0 12  1]
+#  [ 0  0  9]]
+# 0.9666666666666667
